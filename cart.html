@@ -2,156 +2,181 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>تأكيد الطلب - Luminé</title>
+  <title>Luminé Checkout</title>
   <style>
     body {
       font-family: 'Tahoma', sans-serif;
       margin: 0;
-      padding: 20px;
-      background-color: #f7f7f7;
+      padding: 0;
+      background-color: #fff0f5;
       color: #333;
-    }
-    h1 {
-      text-align: center;
-      color: #111;
-    }
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background-color: #fff;
-      padding: 10px 20px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      margin-bottom: 20px;
-    }
-    .header .logo {
-      font-size: 24px;
-      font-weight: bold;
-    }
-    .header .lang {
-      display: flex;
-      gap: 10px;
-    }
-    form {
-      max-width: 600px;
-      margin: auto;
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-    label {
-      display: block;
-      margin: 10px 0 5px;
-    }
-    input, select, button {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 15px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      font-size: 16px;
-    }
-    button {
-      background-color: #28a745;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #218838;
-    }
-    .footer {
-      text-align: center;
-      margin-top: 30px;
-      font-size: 14px;
-    }
-    .footer a {
-      color: #007bff;
-      text-decoration: none;
-    }
-    .footer a:hover {
-      text-decoration: underline;
-    }
-    .total {
-      text-align: center;
-      font-size: 20px;
-      font-weight: bold;
-      margin-bottom: 15px;
-    }
+    }header {
+  background-color: #ff69b4;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 28px;
+}
+
+.language-switcher {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.language-switcher span {
+  margin: 0 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.container {
+  max-width: 600px;
+  margin: 30px auto;
+  background-color: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+button {
+  background-color: #ff69b4;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+}
+
+button:hover {
+  background-color: #ff4fa3;
+}
+
+.summary {
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 15px;
+  color: #e91e63;
+}
+
+.footer {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 14px;
+}
+
+.footer a {
+  color: #ff69b4;
+  text-decoration: none;
+}
+
+.payment-note {
+  background-color: #fff3f8;
+  border-left: 4px solid #ff69b4;
+  padding: 10px;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
   </style>
 </head>
-<body>  <div class="header">
-    <div class="logo">Luminé</div>
-    <div>💍💄ACCESSORIES & Brand</div>
-    <div class="lang">
+<body>  <header>
+    <h1>Luminé</h1>
+    <p>💍💄ACCESSORIES&Brand</p>
+    <div class="language-switcher">
       <span>🇪🇬 عربي</span>
       <span>🇺🇸 English</span>
     </div>
-  </div>  <div class="total">الإجمالي: <span id="totalPrice">0</span> ج.م</div>  <form id="checkoutForm">
-    <label>الاسم بالكامل</label>
-    <input type="text" name="fullname" required><label>رقم الهاتف</label>
-<input type="tel" name="phone" required>
+  </header>  <div class="container">
+    <div class="summary">الإجمالي: 0 ج.م</div><div class="form-group">
+  <label>الاسم بالكامل</label>
+  <input type="text" placeholder="ادخل اسمك" />
+</div>
 
-<label>العنوان</label>
-<input type="text" name="address" required>
+<div class="form-group">
+  <label>رقم الهاتف</label>
+  <input type="tel" placeholder="ادخل رقمك" />
+</div>
 
-<label>موقعك الجغرافي</label>
-<button type="button" onclick="getLocation()">📍 تحديد موقعي</button>
-<input type="text" name="location" id="locationInput" readonly>
+<div class="form-group">
+  <label>العنوان</label>
+  <textarea rows="2" placeholder="ادخل العنوان بالتفصيل"></textarea>
+</div>
 
-<label>اختر طريقة الدفع</label>
-<select name="payment_method" required>
-  <option disabled selected>-- اختر --</option>
-  <option>💳 فيزا</option>
-  <option>🏦 انستا باي</option>
-  <option>📱 فودافون كاش</option>
-  <option>🟠 أورانج كاش</option>
-  <option>🟢 اتصالات كاش</option>
-</select>
+<div class="form-group">
+  <label>موقعك الجغرافي</label>
+  <button onclick="getLocation()">📍 تحديد موقعي</button>
+</div>
 
-<label>💵 المبلغ المدفوع (بالجنيه)</label>
-<input type="number" name="amount" required>
+<div class="form-group">
+  <label>اختر طريقة الدفع</label>
+  <select>
+    <option>-- اختر --</option>
+    <option>💳 فيزا</option>
+    <option>🏦 انستا باي</option>
+    <option>📱 فودافون كاش</option>
+    <option>🔘 أورانج كاش</option>
+    <option>🔷 اتصالات كاش</option>
+  </select>
+</div>
 
-<label>🔢 آخر 4 أرقام من رقم المحوّل</label>
-<input type="text" name="last4digits" maxlength="4" required>
+<div class="form-group">
+  <label>💵 المبلغ المدفوع (بالجنيه)</label>
+  <input type="number" placeholder="ادخل المبلغ" />
+</div>
 
-<label>🧾 صورة إيصال الدفع (إجباري)</label>
-<input type="file" name="receipt" accept="image/*" required>
+<div class="form-group">
+  <label>🔢 آخر 4 أرقام من رقم المحوّل</label>
+  <input type="text" maxlength="4" placeholder="مثال: 1234" />
+</div>
 
-<p><strong>💰 قم بتحويل المبلغ على رقم فودافون كاش التالي:</strong> <br> <strong>201080554138</strong></p>
+<div class="form-group">
+  <label>🧾 صورة إيصال الدفع (إجباري)</label>
+  <input type="file" accept="image/*" />
+</div>
 
-<button type="submit">✅ تأكيد الطلب</button>
+<div class="payment-note">
+  ⭐⭐ قم بتحويل المبلغ على رقم فودافون كاش التالي: <br /> <strong>201080554138</strong>
+</div>
 
-  </form>  <div class="footer">
-    خدمة العملاء: jojoshopsuppor@gmail.com <br>
-    واتساب: <a href="https://wa.me/201150877664" target="_blank">201150877664</a>
+<br />
+<button>✅ تأكيد الطلب</button>
+
+  </div>  <div class="footer">
+    خدمة العملاء: jojoshopsuppor@gmail.com<br />
+    واتساب: <a href="https://wa.me/201150877664">201150877664</a>
   </div>  <script>
-    // حساب السعر من localStorage
-    const cart = JSON.parse(localStorage.getItem("cart") || "[]");
-    const total = cart.reduce((sum, item) => sum + item.price, 0);
-    document.getElementById("totalPrice").textContent = total;
-
-    // تحديد الموقع الجغرافي
     function getLocation() {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
-          const lat = position.coords.latitude;
-          const lon = position.coords.longitude;
-          document.getElementById("locationInput").value = `https://www.google.com/maps?q=${lat},${lon}`;
-        }, function(error) {
-          alert("تعذر الحصول على الموقع.");
+          alert(`خط العرض: ${position.coords.latitude}, خط الطول: ${position.coords.longitude}`);
         });
       } else {
-        alert("المتصفح لا يدعم تحديد الموقع.");
+        alert("المتصفح لا يدعم تحديد الموقع الجغرافي.");
       }
     }
-
-    // إرسال الطلب
-    document.getElementById("checkoutForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      alert("✅ تم إرسال الطلب بنجاح!");
-      // هنا تقدر تبعت البيانات لواتساب أو السيرفر حسب التطبيق
-    });
   </script></body>
 </html>
