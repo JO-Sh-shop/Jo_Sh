@@ -216,46 +216,55 @@
     <input type="text" id="searchInput" placeholder="ابحث عن منتج...">
   </div>
 
-  <!-- ✅ خدمة العملاء -->
-  <div class="customer-service" id="customerService">
-    خدمة العملاء: <br>
-    <a href="mailto:jojoshopsuppor@gmail.com">jojoshopsuppor@gmail.com</a><br>
-    واتساب: <a href="https://wa.me/201150877664">201150877664</a>
-  </div>
+<!-- ✅ خدمة العملاء -->
+<div class="customer-service" id="customerService">
+  خدمة العملاء: <br>
+  <a href="mailto:jojoshopsuppor@gmail.com">jojoshopsuppor@gmail.com</a><br>
+  واتساب: 
+  <a href="https://api.whatsapp.com/send?phone=201150877664" target="_blank">
+    201150877664
+  </a>
+</div>
 
-  <!-- ✅ سويتش اللغة -->
-  <script>
-    function switchLanguage(lang) {
-      const body = document.body;
-      if (lang === "en") {
-        body.setAttribute("dir", "ltr");
-        body.setAttribute("lang", "en");
-        document.getElementById("siteDesc").textContent = "💍💄ACCESSORIES & Brand";
-        document.getElementById("navAccessories").textContent = "💍 Accessories Shop";
-        document.getElementById("navMakeup").textContent = "Makeup Shop 💄💅🏻";
-        document.getElementById("navClothes").textContent = "Clothes 👗🛍️";
-        document.getElementById("searchInput").placeholder = "Search for a product...";
-        document.getElementById("customerService").innerHTML = `
-          Customer Support: <br>
-          <a href="mailto:jojoshopsuppor@gmail.com">jojoshopsuppor@gmail.com</a><br>
-          WhatsApp: <a href="https://wa.me/201150877664">201150877664</a>
-        `;
-      } else {
-        body.setAttribute("dir", "rtl");
-        body.setAttribute("lang", "ar");
-        document.getElementById("siteDesc").textContent = "💍💄ACCESSORIES&Brand";
-        document.getElementById("navAccessories").textContent = "💍 متجر الإكسسوارات";
-        document.getElementById("navMakeup").textContent = "متجر المكياج 💄💅🏻";
-        document.getElementById("navClothes").textContent = "ملابس 👗🛍️";
-        document.getElementById("searchInput").placeholder = "ابحث عن منتج...";
-        document.getElementById("customerService").innerHTML = `
-          خدمة العملاء: <br>
-          <a href="mailto:jojoshopsuppor@gmail.com">jojoshopsuppor@gmail.com</a><br>
-          واتساب: <a href="https://wa.me/201150877664">201150877664</a>
-        `;
-      }
+<!-- ✅ سويتش اللغة -->
+<script>
+  function switchLanguage(lang) {
+    const body = document.body;
+    if (lang === "en") {
+      body.setAttribute("dir", "ltr");
+      body.setAttribute("lang", "en");
+      document.getElementById("siteDesc").textContent = "💍💄ACCESSORIES & Brand";
+      document.getElementById("navAccessories").textContent = "💍 Accessories Shop";
+      document.getElementById("navMakeup").textContent = "Makeup Shop 💄💅🏻";
+      document.getElementById("navClothes").textContent = "Clothes 👗🛍️";
+      document.getElementById("searchInput").placeholder = "Search for a product...";
+      document.getElementById("customerService").innerHTML = `
+        Customer Support: <br>
+        <a href="mailto:jojoshopsuppor@gmail.com">jojoshopsuppor@gmail.com</a><br>
+        WhatsApp: 
+        <a href="https://api.whatsapp.com/send?phone=201150877664" target="_blank">
+          201150877664
+        </a>
+      `;
+    } else {
+      body.setAttribute("dir", "rtl");
+      body.setAttribute("lang", "ar");
+      document.getElementById("siteDesc").textContent = "💍💄ACCESSORIES&Brand";
+      document.getElementById("navAccessories").textContent = "💍 متجر الإكسسوارات";
+      document.getElementById("navMakeup").textContent = "متجر المكياج 💄💅🏻";
+      document.getElementById("navClothes").textContent = "ملابس 👗🛍️";
+      document.getElementById("searchInput").placeholder = "ابحث عن منتج...";
+      document.getElementById("customerService").innerHTML = `
+        خدمة العملاء: <br>
+        <a href="mailto:jojoshopsuppor@gmail.com">jojoshopsuppor@gmail.com</a><br>
+        واتساب: 
+        <a href="https://api.whatsapp.com/send?phone=201150877664" target="_blank">
+          201150877664
+        </a>
+      `;
     }
-  </script>
+  }
+</script>
 
 </body>
 </html>
