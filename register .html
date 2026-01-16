@@ -1,18 +1,20 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>إنشاء حساب -Luminé </title>
+  <title>إنشاء حساب - Luminé</title>
+
+  <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-firestore-compat.js"></script>
+
   <style>
     body {
-      font-family: 'Arial', sans-serif;
+      font-family: Arial, sans-serif;
       background: linear-gradient(to bottom, #fff0f5, #ffe4ec);
       margin: 0;
-      padding: 0;
-      color: #333;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -23,24 +25,12 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      flex-wrap: wrap;
     }
     .logo a {
       font-size: 28px;
       font-weight: bold;
       color: #4b004f;
       text-decoration: none;
-    }
-    .description {
-      font-size: 14px;
-      color: #6e005f;
-    }
-    .lang-switcher select {
-      padding: 6px 12px;
-      border-radius: 6px;
-      border: 1px solid #999;
-      font-size: 14px;
-      cursor: pointer;
     }
     .container {
       flex: 1;
@@ -50,7 +40,7 @@
       padding: 40px 20px;
     }
     .register-box {
-      background-color: #fff;
+      background: #fff;
       padding: 30px;
       border-radius: 12px;
       box-shadow: 0 0 20px rgba(0,0,0,0.15);
@@ -59,203 +49,171 @@
     }
     .register-box h2 {
       text-align: center;
-      margin-bottom: 25px;
       color: #663399;
+      margin-bottom: 25px;
     }
     .input-group {
       position: relative;
       margin: 12px 0;
     }
-    .register-box input {
+    input {
       width: 100%;
-      padding: 12px 40px 12px 12px;
-      border: 1px solid #ccc;
+      padding: 12px;
       border-radius: 8px;
+      border: 1px solid #ccc;
       font-size: 16px;
-      outline: none;
     }
-    .input-group .toggle-password {
+    .toggle-password {
       position: absolute;
       top: 50%;
       right: 12px;
       transform: translateY(-50%);
       cursor: pointer;
-      font-size: 18px;
-      color: #666;
     }
-    .register-box button {
+    button {
       width: 100%;
       padding: 12px;
-      background-color: #b19cd9;
+      background: #b19cd9;
       color: white;
       border: none;
       border-radius: 8px;
       font-size: 16px;
       cursor: pointer;
-      transition: 0.3s;
     }
-    .register-box button:hover {
-      background-color: #a17ccf;
+    button:hover {
+      background: #a17ccf;
     }
-    .register-box a {
+    a {
       display: block;
       text-align: center;
       margin-top: 15px;
       color: #663399;
       text-decoration: none;
-      transition: 0.3s;
-    }
-    .register-box a:hover {
-      text-decoration: underline;
     }
     .footer {
       text-align: center;
       padding: 15px;
-      background-color: #ffe4ec;
-      font-size: 14px;
-      border-top: 1px solid #e5a0b0;
-    }
-    .footer a {
-      color: #663399;
-      text-decoration: none;
+      background: #ffe4ec;
     }
   </style>
 </head>
+
 <body>
-  <header>
-    <div>
-      <div class="logo"><a href="index.html">Luminé</a></div>
-      <div class="description" id="siteDesc">💍💄ACCESSORIES&Brand</div>
-    </div>
-    <div class="lang-switcher">
-      <select onchange="switchLanguage(this.value)">
-        <option value="ar">🇪🇬 عربي</option>
-        <option value="en">🇺🇸 English</option>
-      </select>
-    </div>
-  </header>
 
-  <div class="container">
-    <div class="register-box">
-      <h2 id="registerTitle">إنشاء حساب جديد</h2>
+<header>
+  <div class="logo"><a href="index.html">Luminé</a></div>
+</header>
+
+<div class="container">
+  <div class="register-box">
+    <h2>إنشاء حساب جديد</h2>
+
+    <form onsubmit="event.preventDefault(); registerUser();">
 
       <div class="input-group">
-        <input type="email" id="email" placeholder="البريد الإلكتروني">
+        <input type="text" id="firstName" placeholder="الاسم" required>
       </div>
 
       <div class="input-group">
-        <input type="password" id="password" placeholder="كلمة المرور">
-        <span class="toggle-password" onclick="togglePassword('password')">&#128065;</span>
+        <input type="text" id="fatherName" placeholder="اسم الأب" required>
       </div>
 
       <div class="input-group">
-        <input type="password" id="confirmPassword" placeholder="تأكيد كلمة المرور">
-        <span class="toggle-password" onclick="togglePassword('confirmPassword')">&#128065;</span>
+        <input type="date" id="birthDate" required>
       </div>
 
-      <button onclick="registerUser()" id="registerBtn">إنشاء الحساب</button>
-      <a href="login.html" id="backToLogin">العودة لتسجيل الدخول</a>
-    </div>
+      <div class="input-group">
+        <input type="email" id="email" placeholder="البريد الإلكتروني" required autocomplete="email">
+      </div>
+
+      <div class="input-group">
+        <input type="password" id="password" placeholder="كلمة المرور" required autocomplete="new-password">
+        <span class="toggle-password" onclick="togglePassword('password')">👁</span>
+      </div>
+
+      <div class="input-group">
+        <input type="password" id="confirmPassword" placeholder="تأكيد كلمة المرور" required autocomplete="new-password">
+        <span class="toggle-password" onclick="togglePassword('confirmPassword')">👁</span>
+      </div>
+
+      <button type="submit">إنشاء الحساب</button>
+    </form>
+
+    <a href="login.html">العودة لتسجيل الدخول</a>
   </div>
+</div>
 
-  <div class="footer" id="customerService">
-    خدمة العملاء:<br>
-    <a href="mailto:jojoshopsuppor@gmail.com">jojoshopsuppor@gmail.com</a><br>
-    واتساب: <a href="https://wa.me/201150877664">201150877664</a>
-  </div>
+<div class="footer">
+  خدمة العملاء:<br>
+  <a href="mailto:jojoshopsuppor@gmail.com">jojoshopsuppor@gmail.com</a><br>
+  واتساب: <a href="https://wa.me/201150877664">201150877664</a>
+</div>
 
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyCmLlBbnKNNCA53x3SeLnCI7e3A89CxHao",
-      authDomain: "jojo-shop-4d843.firebaseapp.com",
-      projectId: "jojo-shop-4d843",
-      storageBucket: "jojo-shop-4d843.appspot.com",
-      messagingSenderId: "763306332375",
-      appId: "1:763306332375:web:732db30b0234d0906a2092",
-      measurementId: "G-E73QP19185"
-    };
-    firebase.initializeApp(firebaseConfig);
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyCmLlBbnKNNCA53x3SeLnCI7e3A89CxHao",
+    authDomain: "jojo-shop-4d843.firebaseapp.com",
+    projectId: "jojo-shop-4d843",
+    storageBucket: "jojo-shop-4d843.appspot.com",
+    messagingSenderId: "763306332375",
+    appId: "1:763306332375:web:732db30b0234d0906a2092"
+  };
 
-    const params = new URLSearchParams(window.location.search);
-    const from = params.get('from');
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.firestore();
 
-    function registerUser() {
-      const email = document.getElementById("email").value.trim();
-      const password = document.getElementById("password").value;
-      const confirmPassword = document.getElementById("confirmPassword").value;
+  function registerUser() {
+    const firstName = document.getElementById("firstName").value.trim();
+    const fatherName = document.getElementById("fatherName").value.trim();
+    const birthDate = document.getElementById("birthDate").value;
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
 
-      if (!email || !password || !confirmPassword) {
-        alert("يرجى ملء جميع الحقول.");
-        return;
-      }
+    if (!firstName || !fatherName || !birthDate) {
+      alert("يرجى ملء جميع البيانات");
+      return;
+    }
 
-      if (password.length < 6) {
-        alert("كلمة المرور يجب أن تكون 6 حروف على الأقل.");
-        return;
-      }
+    if (password.length < 6) {
+      alert("كلمة المرور يجب أن تكون 6 أحرف على الأقل");
+      return;
+    }
 
-      if (password !== confirmPassword) {
-        alert("كلمة المرور وتأكيدها غير متطابقين.");
-        return;
-      }
+    if (password !== confirmPassword) {
+      alert("كلمتا المرور غير متطابقتين");
+      return;
+    }
 
-      firebase.auth().createUserWithEmailAndPassword(email, password)
-        .then((userCredential) => {
-          alert("تم إنشاء الحساب بنجاح!");
-          if (from === 'cart') {
-            window.location.href = 'cart.html';
-          } else {
-            window.location.href = 'index.html';
-          }
-        })
-        .catch((error) => {
-          alert("خطأ في إنشاء الحساب: " + error.message);
+    auth.createUserWithEmailAndPassword(email, password)
+      .then((cred) => {
+        return db.collection("users").doc(cred.user.uid).set({
+          firstName: firstName,
+          fatherName: fatherName,
+          birthDate: birthDate,
+          email: cred.user.email,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
         });
-    }
+      })
+      .then(() => {
+        alert("تم إنشاء الحساب بنجاح ✅");
+        window.location.href = "index.html";
+      })
+      .catch((error) => {
+        if (error.code === "auth/email-already-in-use") {
+          alert("هذا البريد مسجّل بالفعل، يرجى تسجيل الدخول");
+        } else {
+          alert("حدث خطأ: " + error.message);
+        }
+      });
+  }
 
-    function togglePassword(id) {
-      const input = document.getElementById(id);
-      if (input.type === "password") {
-        input.type = "text";
-      } else {
-        input.type = "password";
-      }
-    }
+  function togglePassword(id) {
+    const input = document.getElementById(id);
+    input.type = input.type === "password" ? "text" : "password";
+  }
+</script>
 
-    function switchLanguage(lang) {
-      const body = document.body;
-      if (lang === "en") {
-        body.setAttribute("dir", "ltr");
-        body.setAttribute("lang", "en");
-        document.getElementById("siteDesc").textContent = "💍💄ACCESSORIES & Brand";
-        document.getElementById("registerTitle").textContent = "Create New Account";
-        document.getElementById("email").placeholder = "Email";
-        document.getElementById("password").placeholder = "Password";
-        document.getElementById("confirmPassword").placeholder = "Confirm Password";
-        document.getElementById("registerBtn").textContent = "Register";
-        document.getElementById("backToLogin").textContent = "Back to Login";
-        document.getElementById("customerService").innerHTML = `
-          Customer Support:<br>
-          <a href="mailto:jojoshopsuppor@gmail.com">jojoshopsuppor@gmail.com</a><br>
-          WhatsApp: <a href="https://wa.me/201150877664">201150877664</a>
-        `;
-      } else {
-        body.setAttribute("dir", "rtl");
-        body.setAttribute("lang", "ar");
-        document.getElementById("siteDesc").textContent = "💍💄ACCESSORIES&Brand";
-        document.getElementById("registerTitle").textContent = "إنشاء حساب جديد";
-        document.getElementById("email").placeholder = "البريد الإلكتروني";
-        document.getElementById("password").placeholder = "كلمة المرور";
-        document.getElementById("confirmPassword").placeholder = "تأكيد كلمة المرور";
-        document.getElementById("registerBtn").textContent = "إنشاء الحساب";
-        document.getElementById("backToLogin").textContent = "العودة لتسجيل الدخول";
-        document.getElementById("customerService").innerHTML = `
-          خدمة العملاء:<br>
-          <a href="mailto:jojoshopsuppor@gmail.com">jojoshopsuppor@gmail.com</a><br>
-          واتساب: <a href="https://wa.me/201150877664">201150877664</a>
-        `;
-      }
-    }
-  </script>
 </body>
 </html>
